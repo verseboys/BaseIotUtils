@@ -41,7 +41,6 @@ android {
         }
 //        buildConfigField 'java.util.Map<String, String>', 'MY_PKG', convertMap()
         buildConfigField 'String', 'APP_CHOOSE', "\"${APP_CHOOSE}\""
-        signingConfig signingConfigs.debug
         manifestPlaceholders = [APP_NAME: "${APP_CHOOSE}", APP_ICON: getIcon()]
     }
     externalNativeBuild {
@@ -59,7 +58,9 @@ android {
         debug {
             minifyEnabled = false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
+            if (file(BUILD_SIGN_PATH).exists()) {
+                signingConfig signingConfigs.debug
+            }
         }
     }
     compileOptions {

@@ -21,19 +21,6 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
-      - name: Create CI keystore
-        run: |
-          mkdir -p other
-          keytool -genkeypair -v \
-            -keystore other/facefuture.jks \
-            -alias freescale \
-            -keyalg RSA \
-            -keysize 2048 \
-            -validity 10000 \
-            -storepass android \
-            -keypass android \
-            -dname "CN=CI, OU=CI, O=CI, L=CI, S=CI, C=CN"
-
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
