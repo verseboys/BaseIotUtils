@@ -1,5 +1,5 @@
-# 当前分支 Debug / Release 构建
-name: Build Debug & Release
+# 当前分支 Debug 构建
+name: Build Debug
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
     branches: ['**']
 
 jobs:
-  build:
+  build-debug:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -40,17 +40,8 @@ jobs:
       - name: Build Debug
         run: ./gradlew assembleDebug --no-daemon --stacktrace
 
-      - name: Build Release
-        run: ./gradlew assembleRelease --no-daemon --stacktrace
-
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug-${{ github.ref_name }}
           path: app/build/outputs/apk/debug/*.apk
-
-      - name: Upload Release APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release-${{ github.ref_name }}
-          path: app/build/outputs/apk/release/*.apk
